@@ -9,8 +9,8 @@ on:
       - main
 
 env:
-  TF_VAR_organization: ${{ secrets.TF_VAR_ORGANIZATION }}
-  TF_VAR_workspace: ${{ secrets.TF_VAR_WORKSPACE }}
+  TF_CLOUD_ORGANIZATION: ${{ secrets.TF_VAR_ORGANIZATION }}
+  TF_WORKSPACE: ${{ secrets.TF_VAR_WORKSPACE }}
 
 jobs:
   terraform:
@@ -32,10 +32,7 @@ jobs:
 
       - name: terraform init
         id: init
-        run: |
-          terraform init \
-          -backend-config="organization=${TF_VAR_organization}" \
-          -backend-config="workspaces.name=${TF_VAR_workspace}"
+        run: terraform init
       
       - name: terraform validate
         id: validate
