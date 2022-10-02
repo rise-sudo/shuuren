@@ -32,7 +32,10 @@ jobs:
 
       - name: terraform init
         id: init
-        run: terraform init
+        run: |
+          terraform init \
+          -backend-config="organization=${TF_VAR_organization}" \
+          -backend-config="workspaces.name=${TF_VAR_workspace}"
       
       - name: terraform validate
         id: validate
