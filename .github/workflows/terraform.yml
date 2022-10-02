@@ -8,6 +8,10 @@ on:
     branches:    
       - main
 
+env:
+  TF_VAR_organization: ${{ secrets.TF_VAR_ORGANIZATION }}
+  TF_VAR_workspace: ${{ secrets.TF_VAR_WORKSPACE }}
+
 jobs:
   terraform:
     name: "terraform"

@@ -6,10 +6,10 @@ terraform {
   }
 
   cloud {
-    organization = "shuuren"
+    organization = var.organization
 
     workspaces {
-      name = "shuuren-alpha"
+      name = var.workspace
     }
   }
 }
