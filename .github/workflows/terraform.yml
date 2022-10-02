@@ -9,8 +9,8 @@ on:
       - main
 
 env:
-  TF_CLOUD_ORGANIZATION: ${{ secrets.TF_VAR_ORGANIZATION }}
-  TF_WORKSPACE: ${{ secrets.TF_VAR_WORKSPACE }}
+  TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }}
+  TF_WORKSPACE: ${{ secrets.TF_WORKSPACE }}
 
 jobs:
   terraform:
