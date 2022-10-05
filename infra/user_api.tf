@@ -12,8 +12,11 @@ resource "aws_api_gateway_method" "shuuren_api_user_get" {
 }
 
 resource "aws_api_gateway_integration" "shuuren_api_user_get_integration" {
-  http_method = aws_api_gateway_method.shuuren_api_user_get.http_method
-  resource_id = aws_api_gateway_resource.shuuren_api_user.id
-  rest_api_id = aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.id
-  type        = "MOCK"
+  http_method             = aws_api_gateway_method.shuuren_api_user_get.http_method
+  resource_id             = aws_api_gateway_resource.shuuren_api_user.id
+  rest_api_id             = aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.id
+  integration_http_method = "GET"
+  passthrough_behavior    = "WHEN_NO_MATCH"
+  type                    = "HTTP"
+  uri                     = "https://catfact.ninja/fact"
 }
