@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "shuuren_cert" {
-  domain_name       = "shuuren.com"
+  domain_name       = "*.shuuren.com"
   validation_method = "DNS"
 }
 
