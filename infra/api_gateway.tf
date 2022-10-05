@@ -48,3 +48,9 @@ resource "aws_api_gateway_stage" "shuuren_api_user_get_stage" {
   rest_api_id   = aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.id
   stage_name    = "api"
 }
+
+resource "aws_api_gateway_base_path_mapping" "shuuren_api_user_get_mapping" {
+  api_id      = aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.id
+  stage_name  = aws_api_gateway_stage.shuuren_api_user_get_stage.stage_name
+  domain_name = aws_api_gateway_domain_name.shuuren_api_gateway_custom_domain.domain_name
+}
