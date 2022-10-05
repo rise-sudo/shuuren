@@ -4,5 +4,5 @@ resource "aws_acm_certificate" "shuuren_cert" {
 }
 
 resource "aws_acm_certificate_validation" "shuuren_cert_validation" {
-  certificate_arn = aws_acm_certificate.shuuren.arn
+  certificate_arn = aws_acm_certificate.shuuren_cert.arn
 }
