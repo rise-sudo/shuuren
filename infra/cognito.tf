@@ -13,7 +13,7 @@ resource "aws_cognito_user_pool_client" "shuuren_client" {
   supported_identity_providers         = ["COGNITO"]
 }
 
-resource "aws_cognito_user_pool_domain" "main" {
+resource "aws_cognito_user_pool_domain" "shuuren_auth_domain" {
   domain          = "auth.shuuren.com"
   certificate_arn = aws_acm_certificate.shuuren_cert.arn
   user_pool_id    = aws_cognito_user_pool.shuuren_user_pool.id
