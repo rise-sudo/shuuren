@@ -1,5 +1,17 @@
 resource "aws_cognito_user_pool" "shuuren_user_pool" {
   name = "shuuren_user_pool"
+
+  schema {
+    name                = "email"
+    attribute_data_type = "String"
+    mutable             = false
+    required            = true
+
+    string_attribute_constraints {
+      min_length = 0
+      max_length = 2048
+    }
+  }
 }
 
 resource "aws_cognito_user_pool_client" "shuuren_client" {
