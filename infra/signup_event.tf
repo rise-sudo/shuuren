@@ -30,10 +30,7 @@ resource "aws_lambda_function" "signup_post_confirmation" {
   handler          = "post_confirmation.post_confirmation_handler"
   source_code_hash = filebase64sha256("signup_post_confirmation.zip")
   runtime          = "python3.9"
-
-  depends_on = [
-    archive_file.signup_post_confirmation
-  ]
+  depends_on       = [archive_file.signup_post_confirmation]
 }
 
 resource "aws_lambda_permission" "allow_cognito_post_confirmation" {
