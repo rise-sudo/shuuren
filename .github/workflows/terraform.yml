@@ -13,9 +13,24 @@ env:
   TF_WORKSPACE: ${{ secrets.TF_WORKSPACE }}
 
 jobs:
+  upload:
+    name: "upload api and event"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: api_and_event
+          path: |
+            api/
+            event/
   terraform:
     name: "terraform"
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infra
     steps:
       - uses: actions/checkout@v3
 
@@ -23,22 +38,29 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: api_and_event
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - name: terraform fmt
         id: fmt
-        run: terraform -chdir=infra fmt -check
+        run: terraform fmt -check
 
       - name: terraform init
         id: init
-        run: terraform -chdir=infra init
+        run: terraform init
       
       - name: terraform validate
         id: validate
-        run: terraform -chdir=infra validate -no-color
+        run: terraform validate -no-color
 
       - name: terraform plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform -chdir=infra plan -no-color -input=false
+        run: terraform plan -no-color -input=false
         continue-on-error: true
 
       - uses: actions/github-script@v6
@@ -71,4 +93,4 @@ jobs:
 
       - name: terraform apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform -chdir=infra apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false
