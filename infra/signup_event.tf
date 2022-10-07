@@ -9,15 +9,15 @@ resource "aws_iam_role" "signup_event_role" {
   name = "signup_event_role"
 
   assume_role_policy = jsonencode({
-    "Version"   = "2012-10-17",
+    "Version" = "2012-10-17",
     "Statement" = [
       {
-        "Action"    = "sts:AssumeRole",
+        "Action" = "sts:AssumeRole",
         "Principal" = {
           "Service" = "lambda.amazonaws.com"
         },
-        "Effect"    = "Allow",
-        "Sid"       =  ""
+        "Effect" = "Allow",
+        "Sid"    = ""
       }
     ]
   })
