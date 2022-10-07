@@ -16,7 +16,7 @@ resource "aws_cognito_user_pool" "shuuren_user_pool" {
   }
 
   lambda_config {
-    post_authentication = aws_lambda_function.signup_post_confirmation.arn
+    post_confirmation = aws_lambda_function.signup_post_confirmation.arn
   }
 }
 
