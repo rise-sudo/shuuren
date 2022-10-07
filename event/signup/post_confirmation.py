@@ -9,10 +9,10 @@ def post_confirmation_handler(event, context):
     with the new user's basic character stats """
 
     # select the appropriate table
-    table = dynamodb.Table('character_info')
+    character_info_table = dynamodb.Table('character_info')
 
     # populate item based on the user
-    table.put_item(
+    character_info_table.put_item(
        Item={
             'username': event['userName'],
             'str': 10,
