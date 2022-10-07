@@ -28,7 +28,7 @@ resource "aws_lambda_function" "signup_post_confirmation" {
   function_name    = "signup_post_confirmation"
   role             = aws_iam_role.signup_event_role.arn
   handler          = "post_confirmation.post_confirmation_handler"
-  source_code_hash = filebase64sha256("signup_post_confirmation.zip")
+  source_code_hash = "${data.archive_file.signup_post_confirmation.output_base64sha256}"
   runtime          = "python3.9"
 }
 
