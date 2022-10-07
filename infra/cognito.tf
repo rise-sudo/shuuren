@@ -14,6 +14,10 @@ resource "aws_cognito_user_pool" "shuuren_user_pool" {
       max_length = 256
     }
   }
+
+  lambda_config {
+    post_authentication = aws_lambda_function.signup_post_confirmation.arn
+  }
 }
 
 resource "aws_cognito_user_pool_client" "shuuren_client" {
