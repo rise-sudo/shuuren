@@ -1,8 +1,8 @@
-data "archive_file" "signup_post_confirmation" {
+data "archive_file" "signup" {
   type             = "zip"
-  source_file      = "../event/signup/post_confirmation.py"
+  source_dir       = "${path.module}/../event/signup"
   output_file_mode = "0666"
-  output_path      = "signup_post_confirmation.zip"
+  output_path      = "${path.module}/signup.zip"
 }
 
 resource "aws_iam_role" "signup_event_role" {
@@ -24,11 +24,11 @@ resource "aws_iam_role" "signup_event_role" {
 }
 
 resource "aws_lambda_function" "signup_post_confirmation" {
-  filename         = "signup_post_confirmation.zip"
+  filename         = "signup.zip"
   function_name    = "signup_post_confirmation"
   role             = aws_iam_role.signup_event_role.arn
   handler          = "post_confirmation.post_confirmation_handler"
-  source_code_hash = data.archive_file.signup_post_confirmation.output_base64sha256
+  source_code_hash = data.archive_file.signup.output_base64sha256
   runtime          = "python3.9"
 }
 
