@@ -1,8 +1,8 @@
 data "archive_file" "signup" {
   type             = "zip"
-  source_dir       = "${path.module}/../event/signup"
+  source_dir       = "../event/signup"
   output_file_mode = "0666"
-  output_path      = "${path.module}/signup.zip"
+  output_path      = "signup.zip"
 }
 
 resource "aws_iam_role" "signup_event_role" {
