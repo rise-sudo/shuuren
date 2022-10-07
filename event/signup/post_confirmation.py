@@ -1,12 +1,26 @@
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+
 def post_confirmation_handler(event, context):
+    """ post confirmation handler
+    the handler that invokes when a successful verification of a
+    new user account has completed and this populates the db
+    with the new user's basic character stats """
 
-    # send post authentication data to cloudwatch logs
-    # code source: https://docs.amazonaws.cn/en_us/cognito/latest/developerguide/user-pool-lambda-post-authentication.html
-    print("Authentication successful")
-    print("Trigger function =", event['triggerSource'])
-    print("User pool = ", event['userPoolId'])
-    print("App client ID = ", event['callerContext']['clientId'])
-    print("User ID = ", event['userName'])
+    # select the appropriate table
+    table = dynamodb.Table('character_info')
 
-    # return to Amazon Cognito
+    # populate item based on the user
+    table.put_item(
+       Item={
+            'username': event['userName'],
+            'str': 10,
+            'dex': 10,
+            'int': 10,
+            'lv': 1,
+            'exp': 0
+        }
+    )
+
     return event
