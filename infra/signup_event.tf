@@ -23,6 +23,32 @@ resource "aws_iam_role" "signup_event_role" {
   })
 }
 
+resource "aws_iam_policy" "signup_event_logging" {
+  name        = "signup_event_logging"
+  path        = "/"
+  description = "IAM policy for logging from a lambda"
+
+  policy = jsonencode({
+    "Version" = "2012-10-17",
+    "Statement" = [
+      {
+        "Action" = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource" = "arn:aws:logs:*:*:*",
+        "Effect"   = "Allow"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "signup_event_lambda_logs" {
+  role       = aws_iam_role.signup_event_role.name
+  policy_arn = aws_iam_policy.signup_event_logging.arn
+}
+
 resource "aws_lambda_function" "signup_post_confirmation" {
   filename         = "signup.zip"
   function_name    = "signup_post_confirmation"
