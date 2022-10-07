@@ -1,8 +1,8 @@
 data "archive_file" "signup_post_confirmation" {
   type             = "zip"
-  source_file      = "${path.module}/../event/signup/post_confirmation.py"
+  source_file      = "${root.module}/../event/signup/post_confirmation.py"
   output_file_mode = "0666"
-  output_path      = "${path.module}/signup_post_confirmation.zip"
+  output_path      = "${root.module}/signup_post_confirmation.zip"
 }
 
 resource "aws_iam_role" "signup_event_role" {
