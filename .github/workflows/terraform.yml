@@ -25,6 +25,7 @@ jobs:
           path: |
             api/
             event/
+            
   terraform:
     name: "terraform"
     needs: upload
