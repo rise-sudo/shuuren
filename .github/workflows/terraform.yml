@@ -27,6 +27,7 @@ jobs:
             event/
   terraform:
     name: "terraform"
+    needs: upload
     runs-on: ubuntu-latest
     defaults:
       run:
