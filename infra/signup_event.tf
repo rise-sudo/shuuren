@@ -23,14 +23,27 @@ resource "aws_iam_role" "signup_event_role" {
   })
 }
 
-resource "aws_iam_policy" "signup_event_logging" {
-  name        = "signup_event_logging"
+resource "aws_iam_policy" "signup_event_policy" {
+  name        = "signup_event_policy"
   path        = "/"
-  description = "IAM policy for logging from a lambda"
+  description = "iam policy for signup event lambda"
 
   policy = jsonencode({
     "Version" = "2012-10-17",
     "Statement" = [
+      {
+        "Action" = [
+          "dynamodb:BatchGetItem",
+          "dynamodb:GetItem",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem"
+        ],
+        "Resource" = "arn:aws:dynamodb:*:*:*"
+        "Effect"   = "Allow"
+      },
       {
         "Action" = [
           "logs:CreateLogGroup",
@@ -44,9 +57,9 @@ resource "aws_iam_policy" "signup_event_logging" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "signup_event_lambda_logs" {
+resource "aws_iam_role_policy_attachment" "signup_event_policy_attachment" {
   role       = aws_iam_role.signup_event_role.name
-  policy_arn = aws_iam_policy.signup_event_logging.arn
+  policy_arn = aws_iam_policy.signup_event_policy.arn
 }
 
 resource "aws_lambda_function" "signup_post_confirmation" {
