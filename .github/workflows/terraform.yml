@@ -44,7 +44,7 @@ jobs:
           name: api_and_event
           path: ./infra
 
-      - name: Display structure of downloaded files
+      - name: list files
         run: ls -R
 
       - name: terraform fmt

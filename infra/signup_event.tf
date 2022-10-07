@@ -1,6 +1,6 @@
 data "archive_file" "signup" {
   type             = "zip"
-  source_dir       = "${path.module}/../event/signup"
+  source_dir       = "${path.module}/event/signup"
   output_file_mode = "0666"
   output_path      = "signup.zip"
 }
