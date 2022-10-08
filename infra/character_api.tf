@@ -82,12 +82,12 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.update_character.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.execution_arn}/*/${aws_api_gateway_method.shuuren_api_character_put.http_method}${aws_api_gateway_resource.shuuren_api_character.path}"
+  source_arn    = "${aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.execution_arn}/*/${aws_api_gateway_method.shuuren_api_character_post.http_method}${aws_api_gateway_resource.shuuren_api_character.path}"
 }
 
-resource "aws_api_gateway_method" "shuuren_api_character_put" {
+resource "aws_api_gateway_method" "shuuren_api_character_post" {
   authorization = "NONE"
-  http_method   = "PUT"
+  http_method   = "POST"
   resource_id   = aws_api_gateway_resource.shuuren_api_character.id
   rest_api_id   = aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.id
 }
@@ -95,8 +95,8 @@ resource "aws_api_gateway_method" "shuuren_api_character_put" {
 resource "aws_api_gateway_integration" "update_character_integration" {
   rest_api_id             = aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.id
   resource_id             = aws_api_gateway_resource.shuuren_api_character.id
-  http_method             = aws_api_gateway_method.shuuren_api_character_put.http_method
-  integration_http_method = "PUT"
+  http_method             = aws_api_gateway_method.shuuren_api_character_post.http_method
+  integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.update_character.invoke_arn
 }

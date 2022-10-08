@@ -17,7 +17,7 @@ resource "aws_api_gateway_rest_api_policy" "shuuren_api_policy" {
         "Effect"    = "Allow"
         "Principal" = "*"
         "Action"    = "execute-api:Invoke"
-        "Resource"  = "arn:aws:execute-api:*:*:*"
+        "Resource"  = "${aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.execution_arn}/*/*"
       }
     ]
   })
