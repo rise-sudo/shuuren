@@ -1,12 +1,12 @@
-resource "aws_dynamodb_table" "character_info" {
-  name           = "character_info"
+resource "aws_dynamodb_table" "character" {
+  name           = "character"
   billing_mode   = "PROVISIONED"
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "username"
+  hash_key       = "user"
 
   attribute {
-    name = "username"
+    name = "user"
     type = "S"
   }
 }
