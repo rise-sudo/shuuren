@@ -26,6 +26,9 @@ def update_character_handler(event, context):
 
     # if the character info is available
     if character_info:
+        # initialize character info
+        character_info = character_info['Item']
+
         # initialize the stats
         str_stat = body.get('str', '0')
         int_stat = body.get('int', '0')
