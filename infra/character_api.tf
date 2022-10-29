@@ -113,7 +113,7 @@ resource "aws_lambda_function" "get_character" {
 resource "aws_lambda_permission" "allow_get_character_api_gateway" {
   statement_id  = "AllowExecutionFromAPIGatewayCharacterGet"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.update_character.function_name
+  function_name = aws_lambda_function.get_character.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.execution_arn}/*/${aws_api_gateway_method.shuuren_api_character_get.http_method}${aws_api_gateway_resource.shuuren_api_character.path}"
 }
