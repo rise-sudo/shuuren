@@ -100,3 +100,36 @@ resource "aws_api_gateway_integration" "update_character_integration" {
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.update_character.invoke_arn
 }
+
+resource "aws_lambda_function" "get_character" {
+  filename         = "character.zip"
+  function_name    = "get_character"
+  role             = aws_iam_role.character_api_role.arn
+  handler          = "get_character.get_character_handler"
+  source_code_hash = data.archive_file.character.output_base64sha256
+  runtime          = "python3.9"
+}
+
+resource "aws_lambda_permission" "allow_get_character_api_gateway" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.update_character.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.execution_arn}/*/${aws_api_gateway_method.shuuren_api_character_get.http_method}${aws_api_gateway_resource.shuuren_api_character.path}"
+}
+
+resource "aws_api_gateway_method" "shuuren_api_character_get" {
+  authorization = "NONE"
+  http_method   = "GET"
+  resource_id   = aws_api_gateway_resource.shuuren_api_character.id
+  rest_api_id   = aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.id
+}
+
+resource "aws_api_gateway_integration" "get_character_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.shuuren_api_gateway_rest_api.id
+  resource_id             = aws_api_gateway_resource.shuuren_api_character.id
+  http_method             = aws_api_gateway_method.shuuren_api_character_get.http_method
+  integration_http_method = "GET"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.update_character.invoke_arn
+}
