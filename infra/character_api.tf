@@ -131,5 +131,5 @@ resource "aws_api_gateway_integration" "get_character_integration" {
   http_method             = aws_api_gateway_method.shuuren_api_character_get.http_method
   integration_http_method = "GET"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.update_character.invoke_arn
+  uri                     = aws_lambda_function.get_character.invoke_arn
 }
