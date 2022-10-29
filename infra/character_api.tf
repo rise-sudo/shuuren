@@ -111,7 +111,7 @@ resource "aws_lambda_function" "get_character" {
 }
 
 resource "aws_lambda_permission" "allow_get_character_api_gateway" {
-  statement_id  = "AllowExecutionFromAPIGateway"
+  statement_id  = "AllowExecutionFromAPIGatewayCharacterGet"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.update_character.function_name
   principal     = "apigateway.amazonaws.com"
