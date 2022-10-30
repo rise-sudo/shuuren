@@ -71,7 +71,7 @@ def put_character(query_params, dynamodb):
                 
             # add to the skipped stats list otherwise
             else:
-                skipped_stats.append(user_stat_name)
+                skipped_stats.append(user_stat_name.upper())
                     
         # update the character table accordingly
         character_table.put_item(Item=character_info)
@@ -80,15 +80,15 @@ def put_character(query_params, dynamodb):
         if valid_stat:
             response['statusCode'] = 200
             response['body'] = json.dumps({
-                'message': f'Updated Successfully', 
-                'updated': updated_stats, 
+                'message': f'Updated Successfully',
+                'updated': updated_stats,
                 'skipped': skipped_stats
             })
         else:
             response['statusCode'] = 400
             response['body'] = json.dumps({
                 'message': f'User supplied stats do not exist', 
-                'updated': updated_stats, 
+                'updated': updated_stats,
                 'skipped': skipped_stats
             })
 
