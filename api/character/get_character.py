@@ -24,9 +24,9 @@ def get_character(query_params, dynamodb):
         character_info = character_info['Item']
         
         # set the response
-        response['body'] = json.dumps(character_info)
         response['statusCode'] = 200
-        
+        response['body'] = json.dumps(character_info)
+
     # otherwise assume no such user exists
     else:
         # set the response
