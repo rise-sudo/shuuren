@@ -19,6 +19,7 @@ def get_character(query_params, dynamodb):
         }
     )
 
+    # if the character info is available
     if character_info.get('Item'):
         # initialize character info
         character_info = character_info['Item']
@@ -31,6 +32,6 @@ def get_character(query_params, dynamodb):
     else:
         # set the response
         response['statusCode'] = 400
-        response['body'] = json.dumps({'message': 'User does not exist'})
+        response['body'] = json.dumps({'message': f'User {query_params['user']} does not exist'})
         
     return response
