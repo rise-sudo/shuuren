@@ -14,7 +14,7 @@ env:
 
 jobs:
   upload:
-    name: "upload api and event"
+    name: "upload api and events"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +24,7 @@ jobs:
           name: api_and_event
           path: |
             api/
-            event/
+            events/
             
   terraform:
     name: "terraform"
