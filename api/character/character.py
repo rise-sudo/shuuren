@@ -1,5 +1,5 @@
-# import aws api
-import boto3
+# import libraries
+import boto3, json
 
 # import specific http method functions
 from get_character import get_character
