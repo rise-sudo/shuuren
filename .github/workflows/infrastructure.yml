@@ -1,4 +1,4 @@
-name: "terraform"
+name: "infrastructure"
 
 on:
   push:
@@ -14,14 +14,14 @@ env:
 
 jobs:
   upload:
-    name: "upload api and events"
+    name: "prepare api and events"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/upload-artifact@v3
         with:
-          name: api_and_event
+          name: api_and_events
           path: |
             api/
             events/
@@ -42,7 +42,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: api_and_event
+          name: api_and_events
           path: ./infra
 
       - name: list files
