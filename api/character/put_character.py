@@ -1,7 +1,4 @@
-# import standard libraries
-import json
-
-def put_character(event, dynamodb):
+def put_character(query_params, dynamodb):
     """ put character
     the http function that invokes when the basic character 
     stats are requested to be updated by the user """
@@ -12,13 +9,10 @@ def put_character(event, dynamodb):
     # select the appropriate table
     character_table = dynamodb.Table('character')
 
-    # read the body
-    body = json.loads(event.get('body'))
-
     # attempt to get the character data
     character_info = character_table.get_item(
         Key={
-            'user': body['user']
+            'user': query_params['user']
         }
     )
 
@@ -28,15 +22,15 @@ def put_character(event, dynamodb):
         character_info = character_info['Item']
 
         # initialize the stats
-        str_stat = body.get('str', '0')
-        int_stat = body.get('int', '0')
-        dex_stat = body.get('dex', '0')
+        str_stat = query_params.get('str', '0')
+        int_stat = query_params.get('int', '0')
+        dex_stat = query_params.get('dex', '0')
 
         # initialize the level
-        level = body.get('level', '0')
+        level = query_params.get('level', '0')
 
         # initialize the experience
-        exp = body.get('exp', '0')
+        exp = query_params.get('exp', '0')
 
         # update the stats
         try:
