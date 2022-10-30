@@ -47,6 +47,6 @@ def character_handler(event, context):
     else:
         # set the response
         response['statusCode'] = 400
-        response['body'] = json.dumps({'message': 'Invalid HTTP Method'})
+        response['body'] = json.dumps({'message': 'Invalid API Call'})
 
     return response
