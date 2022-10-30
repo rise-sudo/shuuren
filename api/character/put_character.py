@@ -1,3 +1,6 @@
+# import libraries
+import json
+
 def put_character(query_params, dynamodb):
     """ put character
     the http function that invokes when the basic character 
