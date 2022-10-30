@@ -1,12 +1,10 @@
-import boto3
+# import standard libraries
 import json
 
-dynamodb = boto3.resource('dynamodb')
-
-def get_character_handler(event, context)
-    """ get character handler
-    the handler that invokes when the basic character stats
-    need to be retrieved as per the api invocation parameters """
+def get_character(dynamodb)
+    """ get character
+    the http function that invokes when the basic character
+    stats are requested to be retrieved by the user """
     
     # initialize response
     response = {'statusCode': '', 'body': ''}
@@ -23,6 +21,7 @@ def get_character_handler(event, context)
             'user': body['user']
         }
     )
+
     if character_info.get('Item'):
         # initialize character info
         character_info = character_info['Item']
