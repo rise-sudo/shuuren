@@ -1,7 +1,4 @@
-# import standard libraries
-import json
-
-def get_character(event, dynamodb):
+def get_character(query_params, dynamodb):
     """ get character
     the http function that invokes when the basic character
     stats are requested to be retrieved by the user """
@@ -11,14 +8,11 @@ def get_character(event, dynamodb):
     
     # select the appropriate table
     character_table = dynamodb.Table('character')
-    
-    # read the body
-    body = json.loads(event.get('body'))
-    
+        
     # attempt to get the character data
     character_info = character_table.get_item(
         Key={
-            'user': body['user']
+            'user': query_params['user']
         }
     )
 
@@ -27,12 +21,7 @@ def get_character(event, dynamodb):
         character_info = character_info['Item']
         
         # set the response
-        response['body'] = {'str': character_info['str'],
-                            'dex': character_info['dex'],
-                            'exp': character_info['exp'],
-                            'int': character_info['int'],
-                            'level': character_info['level']
-                           }                 
+        response['body'] = character_info
         response['statusCode'] = 200
         
     # otherwise assume no such user exists

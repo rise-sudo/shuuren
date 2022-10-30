@@ -1,7 +1,4 @@
-# import standard libraries
-import json
-
-def post_character(event, dynamodb):
+def post_character(query_params, dynamodb):
     """ post character
     the http function that invokes when the basic character 
     stats are requested to be replaced entirely by the user """

@@ -16,9 +16,9 @@ def set_character_http_mapping():
 
     # initialize character http mapping
     character_http_mapping = {
-        "GET": get_character,
-        "POST": post_character,
-        "PUT": put_character,
+        'GET': get_character,
+        'POST': post_character,
+        'PUT': put_character,
     }
 
     return character_http_mapping
@@ -32,7 +32,10 @@ def character_handler(event, context):
     response = {'statusCode': '', 'body': ''}
 
     # initialize the http method
-    http_method = event.get("httpMethod", "")
+    http_method = event.get('httpMethod', '')
+
+    # initialize query string parameters
+    query_params = event.get('queryStringParameters', {})
 
     # initialize the character http mapping
     character_http_mapping = set_character_http_mapping()
@@ -40,7 +43,7 @@ def character_handler(event, context):
     # check if valid http method
     if http_method in character_http_mapping:
         # invoke the http function accordingly
-        response = character_http_mapping[http_method](event, dynamodb)
+        response = character_http_mapping[http_method](query_params, dynamodb)
     else:
         # set the response
         response['statusCode'] = 400
