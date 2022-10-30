@@ -21,7 +21,7 @@ def get_character(query_params, dynamodb):
 
     if character_info.get('Item'):
         # initialize character info
-        character_info = character_info['Item']
+        character_info = json.dumps(character_info['Item'])
         
         # set the response
         response['body'] = character_info
