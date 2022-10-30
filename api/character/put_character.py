@@ -1,12 +1,10 @@
-import boto3
+# import standard libraries
 import json
 
-dynamodb = boto3.resource('dynamodb')
-
-def update_character_handler(event, context):
-    """ update character handler
-    the handler that invokes when the basic character stats
-    need to be updated as per the api invocation parameters """
+def put_character(dynamodb):
+    """ put character
+    the http function that invokes when the basic character 
+    stats are requested to be updated by the user """
 
     # initialize response
     response = {'statusCode': '', 'body': ''}

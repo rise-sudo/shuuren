@@ -3,7 +3,7 @@ resource "aws_api_gateway_deployment" "shuuren_api_deployment" {
 
   triggers = {
     redeployment = sha1(jsonencode([
-      data.archive_file.character.output_base64sha256
+      data.archive_file.api_character_file.output_base64sha256
     ]))
   }
 
