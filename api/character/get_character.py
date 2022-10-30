@@ -1,7 +1,7 @@
 # import standard libraries
 import json
 
-def get_character(dynamodb)
+def get_character(event, dynamodb):
     """ get character
     the http function that invokes when the basic character
     stats are requested to be retrieved by the user """

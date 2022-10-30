@@ -2,9 +2,9 @@
 import boto3
 
 # import specific http method functions
-from .get_character import get_character
-from .post_character import post_character
-from .put_character import put_character
+from get_character import get_character
+from post_character import post_character
+from put_character import put_character
 
 # initialize connection to dynamodb
 dynamodb = boto3.resource('dynamodb')
@@ -40,7 +40,7 @@ def character_handler(event, context):
     # check if valid http method
     if http_method in character_http_mapping:
         # invoke the http function accordingly
-        response = character_http_mapping[http_method](dynamodb)
+        response = character_http_mapping[http_method](event, dynamodb)
     else:
         # set the response
         response['statusCode'] = 400

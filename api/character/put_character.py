@@ -1,7 +1,7 @@
 # import standard libraries
 import json
 
-def put_character(dynamodb):
+def put_character(event, dynamodb):
     """ put character
     the http function that invokes when the basic character 
     stats are requested to be updated by the user """
